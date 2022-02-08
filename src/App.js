@@ -1,38 +1,28 @@
-import { createContext, useContext } from 'react';
-import './App.css';
+import { createContext, useState, useContext } from "react";
 
-const ContextDefault = createContext('Context default value');
-const Context2 = createContext('Context default value 2');
+const Context = createContext();
 
-const DefaultProvider = ({children}) => {
-  return (
-    <ContextDefault.Provider value={'My Value'}>
+const CounterProvider = ({children}) =>{
+  const [counter, SetCounter] = useState(0);
+
+  const increment = ()=>SetCounter(counter + 1);
+  const decrement = ()=>SetCounter(counter - 1);
+  return(
+    <Context.Provider value={{ counter, increment, decrement }}>
       {children}
-    </ContextDefault.Provider>
+    </Context.Provider>
   )
 };
 
-const Content = () => {
-  const ctx = useContext(ContextDefault);
-  return (
-    <div> Data by Provider: {ctx} </div>
-  )
-};
-
-const Content2 = () => {
-  const ctx = useContext(Context2);
-  return (
-    <div> Data by Provider: {ctx} </div>
-  )
-};
-
-function App() {
-  return (
-    <DefaultProvider>
-     <Content />
-     <Content2 />
-    </DefaultProvider>
-  );
+const Increment = ()=>{
+  
 }
+
+
+const App = () => {
+  return(
+    <h1>Hello Sexy</h1>
+  )
+};
 
 export default App;
