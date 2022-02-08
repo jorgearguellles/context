@@ -1,24 +1,37 @@
-import logo from './logo.svg';
+import { createContext, useContext } from 'react';
 import './App.css';
+
+const ContextDefault = createContext('Context default value');
+const Context2 = createContext('Context default value 2');
+
+const DefaultProvider = ({children}) => {
+  return (
+    <ContextDefault.Provider value={'My Value'}>
+      {children}
+    </ContextDefault.Provider>
+  )
+};
+
+const Content = () => {
+  const ctx = useContext(ContextDefault);
+  return (
+    <div> Data by Provider: {ctx} </div>
+  )
+};
+
+const Content2 = () => {
+  const ctx = useContext(Context2);
+  return (
+    <div> Data by Provider: {ctx} </div>
+  )
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DefaultProvider>
+     <Content />
+     <Content2 />
+    </DefaultProvider>
   );
 }
 
